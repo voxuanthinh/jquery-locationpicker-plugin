@@ -85,6 +85,10 @@
                         gMapContext.locationName = results[0].formatted_address;
                         gMapContext.addressComponents =
                             GmUtility.address_component_from_google_geocode(results[0].address_components);
+                    }else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT){
+                        return setTimeout(function(){
+                            GmUtility.setPosition(gMapContext, location, callback);
+                        }, 1000);
                     }
                     if (callback) {
                         callback.call(this, gMapContext);
